@@ -146,28 +146,28 @@ description: "Task list for Kanban Board Project Management Tool implementation"
 
 ### Tests for User Story 3 (MANDATORY per Constitution) ⚠️
 
-- [ ] T063 [P] [US3] Create E2E test for creating task with title only
-- [ ] T064 [P] [US3] Create E2E test for creating task with title and description
-- [ ] T065 [P] [US3] Create E2E test for validation error when title is empty
-- [ ] T066 [P] [US3] Create integration test for POST /api/tasks endpoint
-- [ ] T067 [P] [US3] Create unit test for TaskForm component validation
+- [X] T063 [P] [US3] Create E2E test for creating task with title only
+- [X] T064 [P] [US3] Create E2E test for creating task with title and description
+- [X] T065 [P] [US3] Create E2E test for validation error when title is empty
+- [X] T066 [P] [US3] Create integration test for POST /api/tasks endpoint
+- [X] T067 [P] [US3] Create unit test for TaskForm component validation
 
 ### Implementation for User Story 3
 
-- [ ] T068 [P] [US3] Create POST /api/tasks route in app/api/tasks/route.ts
-- [ ] T069 [P] [US3] Implement task creation logic with order calculation
-- [ ] T070 [P] [US3] Create TaskForm component in components/board/task-form.tsx with react-hook-form
-- [ ] T071 [P] [US3] Add Zod schema integration to TaskForm for validation
-- [ ] T072 [US3] Add "Add Task" button to Column component
-- [ ] T073 [US3] Implement Dialog from shadcn/ui to show TaskForm
-- [ ] T074 [US3] Add form fields: Input for title, Textarea for description
-- [ ] T075 [US3] Add form validation error messages
-- [ ] T076 [US3] Implement form submission that calls POST /api/tasks
-- [ ] T077 [US3] Add optimistic UI update to show new task immediately
-- [ ] T078 [US3] Implement error handling and display error toasts
-- [ ] T079 [P] [US3] Style TaskForm with Tailwind for consistent appearance
-- [ ] T080 [US3] Add keyboard shortcut (e.g., Ctrl+N) to open new task form
-- [ ] T081 [US3] Test form accessibility (labels, focus management, screen reader)
+- [X] T068 [P] [US3] Create POST /api/tasks route in app/api/tasks/route.ts
+- [X] T069 [P] [US3] Implement task creation logic with order calculation
+- [X] T070 [P] [US3] Create TaskForm component in components/board/task-form.tsx with react-hook-form
+- [X] T071 [P] [US3] Add Zod schema integration to TaskForm for validation
+- [X] T072 [US3] Add "Add Task" button to Column component
+- [X] T073 [US3] Implement Dialog from shadcn/ui to show TaskForm
+- [X] T074 [US3] Add form fields: Input for title, Textarea for description
+- [X] T075 [US3] Add form validation error messages
+- [X] T076 [US3] Implement form submission that calls POST /api/tasks
+- [X] T077 [US3] Add optimistic UI update to show new task immediately
+- [X] T078 [US3] Implement error handling and display error toasts
+- [X] T079 [P] [US3] Style TaskForm with Tailwind for consistent appearance
+- [X] T080 [US3] Add keyboard shortcut (e.g., Ctrl+N) to open new task form
+- [X] T081 [US3] Test form accessibility (labels, focus management, screen reader)
 
 **Checkpoint**: User Story 3 complete - users can create tasks ✅
 

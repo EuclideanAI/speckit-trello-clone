@@ -28,105 +28,28 @@ export async function PATCH(request: NextRequest) {
         throw new Error('Task not found');
       }
 
-      // Moving to a different column
-      if (sourceColumnId !== destinationColumnId) {
-        // Step 1: Move the task to a temporary order to avoid conflicts
-        await tx.task.update({
-          where: { id: taskId },
-          data: { order: 99999 },
-        });
+      // Simplified approach: just update the task's order and column
+      // We don't need to maintain sequential orders (0,1,2,3...)
+      // Just need relative ordering, so we can use any numbers
+      // Use a temporary timestamp-based order to avoid conflicts during update
+      const tempOrder = Date.now();
+      
+      // Step 1: Move to temporary order to avoid unique constraint conflicts
+      await tx.task.update({
+        where: { id: taskId },
+        data: { order: tempOrder },
+      });
 
-        // Step 2: Reorder tasks in source column (shift down tasks after removed task)
-        await tx.task.updateMany({
-          where: {
-            columnId: sourceColumnId,
-            order: { gt: task.order },
-          },
-          data: {
-            order: { decrement: 1 },
-          },
-        });
+      // Step 2: Update to final position
+      const movedTask = await tx.task.update({
+        where: { id: taskId },
+        data: {
+          columnId: destinationColumnId,
+          order: newOrder,
+        },
+      });
 
-        // Step 3: Reorder tasks in destination column (shift up tasks to make space)
-        await tx.task.updateMany({
-          where: {
-            columnId: destinationColumnId,
-            order: { gte: newOrder },
-          },
-          data: {
-            order: { increment: 1 },
-          },
-        });
-
-        // Step 4: Update the moved task to its final position
-        const movedTask = await tx.task.update({
-          where: { id: taskId },
-          data: {
-            columnId: destinationColumnId,
-            order: newOrder,
-          },
-        });
-
-        return movedTask;
-      } 
-      // Reordering within same column
-      else {
-        const currentOrder = task.order;
-
-        // Skip if no change needed
-        if (currentOrder === newOrder) {
-          return task;
-        }
-
-        // Step 1: Move the task to a temporary order to avoid conflicts
-        // Use a very high number that won't conflict
-        await tx.task.update({
-          where: { id: taskId },
-          data: { order: 99999 },
-        });
-
-        // Step 2: Shift other tasks
-        // Moving up (to lower order number)
-        if (newOrder < currentOrder) {
-          // Shift tasks down that are between newOrder and currentOrder
-          await tx.task.updateMany({
-            where: {
-              columnId: sourceColumnId,
-              order: {
-                gte: newOrder,
-                lt: currentOrder,
-              },
-            },
-            data: {
-              order: { increment: 1 },
-            },
-          });
-        }
-        // Moving down (to higher order number)
-        else if (newOrder > currentOrder) {
-          // Shift tasks up that are between currentOrder and newOrder
-          await tx.task.updateMany({
-            where: {
-              columnId: sourceColumnId,
-              order: {
-                gt: currentOrder,
-                lte: newOrder,
-              },
-            },
-            data: {
-              order: { decrement: 1 },
-            },
-          });
-        }
-
-        // Step 3: Update the moved task to its final position
-        const movedTask = await tx.task.update({
-          where: { id: taskId },
-          data: { order: newOrder },
-        });
-
-        return movedTask;
-      }
+      return movedTask;
     });
 
     return NextResponse.json({

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Board as PrismaBoard, Column as PrismaColumn, Task } from '@prisma/client';
 import {
   DndContext,
@@ -34,8 +35,46 @@ interface BoardProps {
  * Supports drag-and-drop for task management
  */
 export function Board({ board: initialBoard }: BoardProps) {
+  const router = useRouter();
   const [board, setBoard] = useState(initialBoard);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+
+  // Keyboard shortcut to add new task (Ctrl/Cmd+N)
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Check for Ctrl+N (Windows/Linux) or Cmd+N (Mac)
+      if ((event.ctrlKey || event.metaKey) && event.key === 'n') {
+        event.preventDefault(); // Prevent browser's default "New Window"
+        
+        // Trigger "Add a card" on the first column
+        // Dispatch a custom event that the first Column component will listen to
+        const addTaskEvent = new CustomEvent('add-task-shortcut', {
+          detail: { columnId: board.columns[0]?.id },
+        });
+        window.dispatchEvent(addTaskEvent);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [board.columns]);
+
+  // Refresh board data
+  const refreshBoard = async () => {
+    try {
+      const response = await fetch('/api/board', {
+        cache: 'no-store',
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (data.board) {
+          setBoard(data.board);
+        }
+      }
+    } catch (error) {
+      console.error('Error refreshing board:', error);
+    }
+  };
 
   // Configure sensors for drag detection
   const sensors = useSensors(
@@ -192,7 +231,7 @@ export function Board({ board: initialBoard }: BoardProps) {
           aria-label="Task columns"
         >
           {board.columns.map((column) => (
-            <Column key={column.id} column={column} />
+            <Column key={column.id} column={column} onTaskCreated={refreshBoard} />
           ))}
         </div>
       </main>
