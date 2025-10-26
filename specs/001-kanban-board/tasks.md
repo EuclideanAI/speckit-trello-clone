@@ -77,26 +77,26 @@ description: "Task list for Kanban Board Project Management Tool implementation"
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T026 [P] [US1] Create E2E test in __tests__/e2e/board.spec.ts for loading board with tasks
-- [ ] T027 [P] [US1] Create E2E test for empty board display with column placeholders
-- [ ] T028 [P] [US1] Create E2E test for scrollable columns with many tasks
-- [ ] T029 [P] [US1] Create integration test in __tests__/integration/api/board.test.ts for GET /api/board
-- [ ] T030 [P] [US1] Create unit test in __tests__/unit/components/board.test.tsx for Board component rendering
+- [X] T026 [P] [US1] Create E2E test in __tests__/e2e/board.spec.ts for loading board with tasks
+- [X] T027 [P] [US1] Create E2E test for empty board display with column placeholders
+- [X] T028 [P] [US1] Create E2E test for scrollable columns with many tasks
+- [X] T029 [P] [US1] Create integration test in __tests__/integration/api/board.test.ts for GET /api/board
+- [X] T030 [P] [US1] Create unit test in __tests__/unit/components/board.test.tsx for Board component rendering
 
 ### Implementation for User Story 1
 
-- [ ] T031 [P] [US1] Create GET /api/board route in app/api/board/route.ts to fetch board with columns and tasks
-- [ ] T032 [P] [US1] Create Board component in components/board/board.tsx with horizontal column layout
-- [ ] T033 [P] [US1] Create Column component in components/board/column.tsx with header and task list
-- [ ] T034 [P] [US1] Create TaskCard component in components/board/task-card.tsx with title and description display
-- [ ] T035 [US1] Create main page in app/page.tsx that fetches and displays board
-- [ ] T036 [US1] Add loading.tsx in app/ for Suspense boundary during board fetch
-- [ ] T037 [US1] Add error.tsx in app/ for error boundary handling
-- [ ] T038 [P] [US1] Style Board component with Tailwind for responsive horizontal scrolling
-- [ ] T039 [P] [US1] Style Column component with Tailwind for fixed width and vertical scrolling
-- [ ] T040 [P] [US1] Style TaskCard component with Tailwind for card appearance and hover states
-- [ ] T041 [US1] Add empty state messaging when columns have no tasks
-- [ ] T042 [US1] Test responsive design on mobile viewport (columns stack or horizontal scroll)
+- [X] T031 [P] [US1] Create GET /api/board route in app/api/board/route.ts to fetch board with columns and tasks
+- [X] T032 [P] [US1] Create Board component in components/board/board.tsx with horizontal column layout
+- [X] T033 [P] [US1] Create Column component in components/board/column.tsx with header and task list
+- [X] T034 [P] [US1] Create TaskCard component in components/board/task-card.tsx with title and description display
+- [X] T035 [US1] Create main page in app/page.tsx that fetches and displays board
+- [X] T036 [US1] Add loading.tsx in app/ for Suspense boundary during board fetch
+- [X] T037 [US1] Add error.tsx in app/ for error boundary handling
+- [X] T038 [P] [US1] Style Board component with Tailwind for responsive horizontal scrolling
+- [X] T039 [P] [US1] Style Column component with Tailwind for fixed width and vertical scrolling
+- [X] T040 [P] [US1] Style TaskCard component with Tailwind for card appearance and hover states
+- [X] T041 [US1] Add empty state messaging when columns have no tasks
+- [X] T042 [US1] Test responsive design on mobile viewport (columns stack or horizontal scroll)
 
 **Checkpoint**: User Story 1 complete - board displays tasks organized by column ✅
 
