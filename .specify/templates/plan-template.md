@@ -31,7 +31,23 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**Reference**: `.specify/memory/constitution.md` v1.0.0+
+
+| Principle | Requirement | Plan Compliance |
+|-----------|-------------|-----------------|
+| **I. Code Quality Standards** | Linting, type safety, SRP, documentation | ✅ / ⚠️ / ❌ + explanation |
+| **II. Testing Standards** | TDD mandatory, 80%+ coverage, 3 test layers | ✅ / ⚠️ / ❌ + explanation |
+| **III. UX Consistency** | Design system, accessibility (WCAG 2.1 AA), responsive | ✅ / ⚠️ / ❌ + explanation |
+| **IV. Performance Requirements** | <2s load, <500ms API p95, <200KB bundle | ✅ / ⚠️ / ❌ + explanation |
+
+**Quality Gates to Pass**:
+- [ ] Design Gate: UI/UX mockups reviewed and approved (if UI feature)
+- [ ] Test Gate: Test strategy defined, 3 layers planned
+- [ ] Performance Gate: Performance targets identified and testable
+- [ ] Accessibility Gate: WCAG compliance plan documented (if UI feature)
+
+**Violations Requiring Justification**:
+- Any ⚠️ or ❌ above MUST be explained in Complexity Tracking section
 
 ## Project Structure
 

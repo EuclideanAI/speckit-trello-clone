@@ -1,0 +1,498 @@
+openapi: 3.0.3
+info:
+  title: Kanban Board API
+  description: REST API for Kanban board task management
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Local development server
+
+paths:
+  /board:
+    get:
+      summary: Get board with all columns and tasks
+      description: Retrieves the board with all columns and their tasks, ordered by position
+      operationId: getBoard
+      tags:
+        - Board
+      responses:
+        '200':
+          description: Board retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardWithRelations'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /tasks:
+    get:
+      summary: List all tasks
+      description: Get all tasks across all columns
+      operationId: listTasks
+      tags:
+        - Tasks
+      parameters:
+        - name: columnId
+          in: query
+          description: Filter tasks by column ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tasks retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tasks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      summary: Create a new task
+      description: Creates a new task in the specified column
+      operationId: createTask
+      tags:
+        - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreateInput'
+      responses:
+        '201':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /tasks/{id}:
+    get:
+      summary: Get a single task
+      description: Retrieve task details by ID
+      operationId: getTask
+      tags:
+        - Tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    patch:
+      summary: Update a task
+      description: Update task title and/or description
+      operationId: updateTask
+      tags:
+        - Tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateInput'
+      responses:
+        '200':
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete a task
+      description: Permanently delete a task and reorder remaining tasks in the column
+      operationId: deleteTask
+      tags:
+        - Tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Task ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Task deleted successfully
+                  deletedTaskId:
+                    type: string
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /tasks/reorder:
+    patch:
+      summary: Reorder or move tasks
+      description: Move a task to a different column or reorder within the same column
+      operationId: reorderTask
+      tags:
+        - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskReorderInput'
+      responses:
+        '200':
+          description: Task reordered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Task reordered successfully
+                  task:
+                    $ref: '#/components/schemas/Task'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '404':
+          description: Task not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Board:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique board identifier (CUID)
+          example: clxxx1234567890abcdefg
+        name:
+          type: string
+          description: Board name
+          example: My Kanban Board
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+      required:
+        - id
+        - name
+        - createdAt
+        - updatedAt
+
+    Column:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique column identifier (CUID)
+          example: clxxx1234567890abcdefg
+        boardId:
+          type: string
+          description: Parent board ID
+        name:
+          type: string
+          description: Column name
+          example: To Do
+        order:
+          type: integer
+          description: Column position (0-based)
+          minimum: 0
+          example: 0
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+      required:
+        - id
+        - boardId
+        - name
+        - order
+        - createdAt
+        - updatedAt
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique task identifier (CUID)
+          example: clxxx1234567890abcdefg
+        columnId:
+          type: string
+          description: Parent column ID
+        title:
+          type: string
+          description: Task title
+          minLength: 1
+          maxLength: 200
+          example: Implement drag and drop
+        description:
+          type: string
+          nullable: true
+          description: Task description (optional)
+          maxLength: 1000
+          example: Use @dnd-kit library for accessible drag-and-drop
+        order:
+          type: integer
+          description: Task position within column (0-based)
+          minimum: 0
+          example: 0
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+      required:
+        - id
+        - columnId
+        - title
+        - order
+        - createdAt
+        - updatedAt
+
+    ColumnWithTasks:
+      allOf:
+        - $ref: '#/components/schemas/Column'
+        - type: object
+          properties:
+            tasks:
+              type: array
+              items:
+                $ref: '#/components/schemas/Task'
+              description: Tasks in this column, ordered by position
+
+    BoardWithRelations:
+      allOf:
+        - $ref: '#/components/schemas/Board'
+        - type: object
+          properties:
+            columns:
+              type: array
+              items:
+                $ref: '#/components/schemas/ColumnWithTasks'
+              description: Columns in this board, ordered by position
+
+    TaskCreateInput:
+      type: object
+      properties:
+        columnId:
+          type: string
+          description: Column ID where task will be created
+          example: clxxx1234567890abcdefg
+        title:
+          type: string
+          description: Task title
+          minLength: 1
+          maxLength: 200
+          example: Implement drag and drop
+        description:
+          type: string
+          nullable: true
+          description: Task description (optional)
+          maxLength: 1000
+          example: Use @dnd-kit library for accessible drag-and-drop
+      required:
+        - columnId
+        - title
+
+    TaskUpdateInput:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Updated task title
+          minLength: 1
+          maxLength: 200
+          example: Implement drag and drop with @dnd-kit
+        description:
+          type: string
+          nullable: true
+          description: Updated task description
+          maxLength: 1000
+          example: Use @dnd-kit library for accessible drag-and-drop functionality
+      minProperties: 1
+
+    TaskReorderInput:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: Task ID to move/reorder
+          example: clxxx1234567890abcdefg
+        sourceColumnId:
+          type: string
+          description: Current column ID
+          example: clxxx1234567890abcdefg
+        destinationColumnId:
+          type: string
+          description: Target column ID (can be same as source for reordering)
+          example: clyyy1234567890abcdefg
+        newOrder:
+          type: integer
+          description: New position in destination column (0-based)
+          minimum: 0
+          example: 1
+      required:
+        - taskId
+        - sourceColumnId
+        - destinationColumnId
+        - newOrder
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: Internal server error
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 500
+      required:
+        - error
+
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: Validation failed
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 400
+        issues:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: Field name that failed validation
+                example: title
+              message:
+                type: string
+                description: Validation error message
+                example: Title is required
+      required:
+        - error
+        - issues
+
+tags:
+  - name: Board
+    description: Board operations
+  - name: Tasks
+    description: Task CRUD and reordering operations
