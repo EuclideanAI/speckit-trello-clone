@@ -28,19 +28,19 @@ description: "Task list for Kanban Board Project Management Tool implementation"
 
 **Purpose**: Initialize Next.js 15 project with required dependencies and configuration
 
-- [ ] T001 Initialize Next.js 15 project with TypeScript using `npx create-next-app@15`
-- [ ] T002 [P] Install core dependencies: prisma, @prisma/client, @dnd-kit/core, @dnd-kit/sortable, lucide-react
-- [ ] T003 [P] Install dev dependencies: vitest, @testing-library/react, @testing-library/jest-dom, playwright
-- [ ] T004 [P] Initialize shadcn/ui with `npx shadcn-ui@latest init` and configure components.json
-- [ ] T005 [P] Install shadcn/ui components: card, button, dialog, input, textarea, form, label, scroll-area
-- [ ] T006 [P] Create .env.local file with DATABASE_URL="file:./dev.db"
-- [ ] T007 [P] Configure next.config.js for production optimizations
-- [ ] T008 [P] Configure tailwind.config.ts with custom theme and shadcn/ui presets
-- [ ] T009 [P] Configure tsconfig.json with path aliases (@/*)
-- [ ] T010 [P] Create vitest.config.ts for unit test configuration
-- [ ] T011 [P] Create playwright.config.ts for E2E test configuration
-- [ ] T012 [P] Setup ESLint and Prettier configurations
-- [ ] T013 [P] Create .gitignore entries for dev.db, .env.local, node_modules
+- [X] T001 Initialize Next.js 15 project with TypeScript using `npx create-next-app@15`
+- [X] T002 [P] Install core dependencies: prisma, @prisma/client, @dnd-kit/core, @dnd-kit/sortable, lucide-react
+- [X] T003 [P] Install dev dependencies: vitest, @testing-library/react, @testing-library/jest-dom, playwright
+- [X] T004 [P] Initialize shadcn/ui with `npx shadcn-ui@latest init` and configure components.json
+- [X] T005 [P] Install shadcn/ui components: card, button, dialog, input, textarea, form, label, scroll-area
+- [X] T006 [P] Create .env.local file with DATABASE_URL="file:./dev.db"
+- [X] T007 [P] Configure next.config.js for production optimizations
+- [X] T008 [P] Configure tailwind.config.ts with custom theme and shadcn/ui presets
+- [X] T009 [P] Configure tsconfig.json with path aliases (@/*)
+- [X] T010 [P] Create vitest.config.ts for unit test configuration
+- [X] T011 [P] Create playwright.config.ts for E2E test configuration
+- [X] T012 [P] Setup ESLint and Prettier configurations
+- [X] T013 [P] Create .gitignore entries for dev.db, .env.local, node_modules
 
 ---
 
@@ -50,18 +50,18 @@ description: "Task list for Kanban Board Project Management Tool implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T014 Create Prisma schema in prisma/schema.prisma with Board, Column, Task models
-- [ ] T015 Generate Prisma client with `npx prisma generate`
-- [ ] T016 Create initial database migration with `npx prisma migrate dev --name init`
-- [ ] T017 Create seed script in prisma/seed.ts with sample board, 3 columns, and 7 tasks
-- [ ] T018 Run seed script with `npx prisma db seed`
-- [ ] T019 [P] Create Prisma client singleton in lib/db.ts
-- [ ] T020 [P] Create Zod validation schemas in lib/validations.ts (taskSchema, taskMoveSchema, taskReorderSchema)
-- [ ] T021 [P] Create utility functions in lib/utils.ts (cn helper from shadcn/ui)
-- [ ] T022 [P] Create app/globals.css with Tailwind directives and CSS variables
-- [ ] T023 Create app/layout.tsx with root HTML structure, metadata, and font configuration
-- [ ] T024 [P] Setup test utilities in __tests__/setup.ts for Vitest and RTL
-- [ ] T025 [P] Create mock Prisma client in __tests__/mocks/prisma.ts for testing
+- [X] T014 Create Prisma schema in prisma/schema.prisma with Board, Column, Task models
+- [X] T015 Generate Prisma client with `npx prisma generate`
+- [X] T016 Create initial database migration with `npx prisma migrate dev --name init`
+- [X] T017 Create seed script in prisma/seed.ts with sample board, 3 columns, and 7 tasks
+- [X] T018 Run seed script with `npx prisma db seed`
+- [X] T019 [P] Create Prisma client singleton in lib/db.ts
+- [X] T020 [P] Create Zod validation schemas in lib/validations.ts (taskSchema, taskMoveSchema, taskReorderSchema)
+- [X] T021 [P] Create utility functions in lib/utils.ts (cn helper from shadcn/ui)
+- [X] T022 [P] Create app/globals.css with Tailwind directives and CSS variables
+- [X] T023 Create app/layout.tsx with root HTML structure, metadata, and font configuration
+- [X] T024 [P] Setup test utilities in __tests__/setup.ts for Vitest and RTL
+- [X] T025 [P] Create mock Prisma client in __tests__/mocks/prisma.ts for testing
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
