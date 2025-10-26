@@ -1,4 +1,9 @@
 import { Column as PrismaColumn, Task } from '@prisma/client';
+import { useDroppable } from '@dnd-kit/core';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { TaskCard } from './task-card';
 
 interface ColumnProps {
@@ -14,6 +19,12 @@ interface ColumnProps {
  * Supports vertical scrolling for overflow content
  */
 export function Column({ column }: ColumnProps) {
+  const { setNodeRef } = useDroppable({
+    id: column.id,
+  });
+
+  const taskIds = column.tasks.map((task) => task.id);
+
   return (
     <div
       data-testid="column"
@@ -32,23 +43,26 @@ export function Column({ column }: ColumnProps) {
       </div>
 
       {/* Task List */}
-      <div
-        data-testid="task-list"
-        className="flex-1 overflow-y-auto space-y-2 pr-1 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent"
-        role="list"
-      >
-        {column.tasks.length === 0 ? (
-          <div className="text-center py-8 text-gray-400 dark:text-gray-600 text-sm">
-            No tasks yet
-          </div>
-        ) : (
-          column.tasks.map((task) => (
-            <div key={task.id} role="listitem">
-              <TaskCard task={task} />
+      <SortableContext items={taskIds} strategy={verticalListSortingStrategy}>
+        <div
+          ref={setNodeRef}
+          data-testid="task-list"
+          className="flex-1 overflow-y-auto space-y-2 pr-1 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent"
+          role="list"
+        >
+          {column.tasks.length === 0 ? (
+            <div className="text-center py-8 text-gray-400 dark:text-gray-600 text-sm">
+              No tasks yet
             </div>
-          ))
-        )}
-      </div>
+          ) : (
+            column.tasks.map((task) => (
+              <div key={task.id} role="listitem">
+                <TaskCard task={task} />
+              </div>
+            ))
+          )}
+        </div>
+      </SortableContext>
     </div>
   );
 }

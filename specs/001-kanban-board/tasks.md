@@ -110,29 +110,29 @@ description: "Task list for Kanban Board Project Management Tool implementation"
 
 ### Tests for User Story 2 (MANDATORY per Constitution) ⚠️
 
-- [ ] T043 [P] [US2] Create E2E test for dragging task between columns
-- [ ] T044 [P] [US2] Create E2E test for reordering task within same column
-- [ ] T045 [P] [US2] Create E2E test for invalid drop (task returns to origin)
-- [ ] T046 [P] [US2] Create E2E test for visual feedback during drag
-- [ ] T047 [P] [US2] Create integration test for PATCH /api/tasks/reorder endpoint
-- [ ] T048 [P] [US2] Create unit test for drag-and-drop hook logic
+- [X] T043 [P] [US2] Create E2E test for dragging task between columns
+- [X] T044 [P] [US2] Create E2E test for reordering task within same column
+- [X] T045 [P] [US2] Create E2E test for invalid drop (task returns to origin)
+- [X] T046 [P] [US2] Create E2E test for visual feedback during drag
+- [X] T047 [P] [US2] Create integration test for PATCH /api/tasks/reorder endpoint
+- [X] T048 [P] [US2] Create unit test for drag-and-drop hook logic
 
 ### Implementation for User Story 2
 
-- [ ] T049 [P] [US2] Create PATCH /api/tasks/reorder route in app/api/tasks/reorder/route.ts
-- [ ] T050 [P] [US2] Implement reorder logic with Prisma transaction for atomicity
-- [ ] T051 [US2] Install and configure @dnd-kit/core and @dnd-kit/sortable packages
-- [ ] T052 [US2] Wrap Board component with DndContext from @dnd-kit
-- [ ] T053 [US2] Make Column component a SortableContext for its tasks
-- [ ] T054 [US2] Make TaskCard component use useSortable hook for drag behavior
-- [ ] T055 [US2] Implement onDragEnd handler in Board to update task positions
-- [ ] T056 [US2] Add optimistic UI updates using React's useOptimistic hook
-- [ ] T057 [P] [US2] Add DragOverlay component for visual drag feedback
-- [ ] T058 [P] [US2] Style drag placeholder and drop zone highlights with Tailwind
-- [ ] T059 [P] [US2] Add drag handle icon from Lucide React to task cards
-- [ ] T060 [US2] Implement keyboard navigation for drag-and-drop (accessibility requirement)
-- [ ] T061 [US2] Add ARIA live regions for screen reader announcements during drag
-- [ ] T062 [US2] Test touch-based drag and drop on mobile devices
+- [X] T049 [P] [US2] Create PATCH /api/tasks/reorder route in app/api/tasks/reorder/route.ts
+- [X] T050 [P] [US2] Implement reorder logic with Prisma transaction for atomicity
+- [X] T051 [US2] Install and configure @dnd-kit/core and @dnd-kit/sortable packages
+- [X] T052 [US2] Wrap Board component with DndContext from @dnd-kit
+- [X] T053 [US2] Make Column component a SortableContext for its tasks
+- [X] T054 [US2] Make TaskCard component use useSortable hook for drag behavior
+- [X] T055 [US2] Implement onDragEnd handler in Board to update task positions
+- [X] T056 [US2] Add optimistic UI updates using React's useOptimistic hook
+- [X] T057 [P] [US2] Add DragOverlay component for visual drag feedback
+- [X] T058 [P] [US2] Style drag placeholder and drop zone highlights with Tailwind
+- [X] T059 [P] [US2] Add drag handle icon from Lucide React to task cards
+- [X] T060 [US2] Implement keyboard navigation for drag-and-drop (accessibility requirement)
+- [X] T061 [US2] Add ARIA live regions for screen reader announcements during drag
+- [X] T062 [US2] Test touch-based drag and drop on mobile devices
 
 **Checkpoint**: User Story 2 complete - drag-and-drop fully functional ✅
 
