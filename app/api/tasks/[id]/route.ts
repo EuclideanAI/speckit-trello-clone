@@ -72,3 +72,55 @@ export async function PATCH(
     );
   }
 }
+
+/**
+ * DELETE /api/tasks/[id]
+ * 
+ * Deletes an existing task permanently
+ */
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+
+    // Check if ID is provided
+    if (!id || id.trim() === '') {
+      return NextResponse.json(
+        { error: 'Task ID is required' },
+        { status: 400 }
+      );
+    }
+
+    // Check if task exists
+    const existingTask = await prisma.task.findUnique({
+      where: { id },
+    });
+
+    if (!existingTask) {
+      return NextResponse.json(
+        { error: 'Task not found' },
+        { status: 404 }
+      );
+    }
+
+    // Delete the task
+    const deletedTask = await prisma.task.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({
+      message: 'Task deleted successfully',
+      task: deletedTask,
+    });
+  } catch (error) {
+    console.error('Error deleting task:', error);
+
+    // Handle other errors
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}

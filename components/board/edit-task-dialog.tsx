@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Task } from '@prisma/client';
-import { X, Tag, Clock, CheckSquare, User, Plus } from 'lucide-react';
+import { X, Tag, Clock, CheckSquare, User, Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -18,6 +18,7 @@ interface EditTaskDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSave: (taskId: string, title: string, description: string | null) => Promise<void>;
+  onDelete?: (taskId: string) => void;
 }
 
 /**
@@ -31,6 +32,7 @@ export function EditTaskDialog({
   open,
   onOpenChange,
   onSave,
+  onDelete,
 }: EditTaskDialogProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -245,6 +247,21 @@ export function EditTaskDialog({
               >
                 <User className="h-4 w-4 mr-2" />
                 Members
+              </Button>
+
+              {/* Actions section */}
+              <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 mt-4 pt-4 border-t">
+                Actions
+              </div>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start text-sm font-normal text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:hover:text-red-300"
+                onClick={() => onDelete?.(task!.id)}
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete
               </Button>
             </div>
           </div>

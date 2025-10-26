@@ -20,6 +20,7 @@ import {
 import { Column } from './column';
 import { TaskCard } from './task-card';
 import { EditTaskDialog } from './edit-task-dialog';
+import { DeleteConfirmDialog } from './delete-confirm-dialog';
 
 interface BoardProps {
   board: PrismaBoard & {
@@ -41,11 +42,54 @@ export function Board({ board: initialBoard }: BoardProps) {
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [deletingTask, setDeletingTask] = useState<Task | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Handle task edit
   const handleEditTask = (task: Task) => {
     setEditingTask(task);
     setIsEditDialogOpen(true);
+  };
+
+  // Handle task delete initiation
+  const handleDeleteTask = (taskId: string) => {
+    const task = board.columns
+      .flatMap((col: any) => col.tasks)
+      .find((t: any) => t.id === taskId);
+    
+    if (task) {
+      setDeletingTask(task);
+      setIsDeleteDialogOpen(true);
+      // Close edit dialog if open
+      setIsEditDialogOpen(false);
+    }
+  };
+
+  // Confirm task deletion
+  const handleConfirmDelete = async () => {
+    if (!deletingTask) return;
+
+    setIsDeleting(true);
+    try {
+      const response = await fetch(`/api/tasks/${deletingTask.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete task');
+      }
+
+      // Close dialog and refresh board
+      setIsDeleteDialogOpen(false);
+      setDeletingTask(null);
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting task:', error);
+      alert('Failed to delete task. Please try again.');
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   // Save edited task
@@ -286,6 +330,16 @@ export function Board({ board: initialBoard }: BoardProps) {
         open={isEditDialogOpen}
         onOpenChange={setIsEditDialogOpen}
         onSave={handleSaveTask}
+        onDelete={handleDeleteTask}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <DeleteConfirmDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        onConfirm={handleConfirmDelete}
+        taskTitle={deletingTask?.title || ''}
+        isDeleting={isDeleting}
       />
     </DndContext>
   );
