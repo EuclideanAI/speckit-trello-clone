@@ -181,26 +181,26 @@ description: "Task list for Kanban Board Project Management Tool implementation"
 
 ### Tests for User Story 4 (MANDATORY per Constitution) ⚠️
 
-- [ ] T082 [P] [US4] Create E2E test for editing task title
-- [ ] T083 [P] [US4] Create E2E test for editing task description
-- [ ] T084 [P] [US4] Create E2E test for canceling edit without saving
-- [ ] T085 [P] [US4] Create E2E test for validation error when clearing title
-- [ ] T086 [P] [US4] Create integration test for PATCH /api/tasks/:id endpoint
+- [X] T082 [P] [US4] Create E2E test for editing task title
+- [X] T083 [P] [US4] Create E2E test for editing task description
+- [X] T084 [P] [US4] Create E2E test for canceling edit without saving
+- [X] T085 [P] [US4] Create E2E test for validation error when clearing title
+- [X] T086 [P] [US4] Create integration test for PATCH /api/tasks/:id endpoint
 - [ ] T087 [P] [US4] Create unit test for edit form validation
 
 ### Implementation for User Story 4
 
-- [ ] T088 [P] [US4] Create PATCH /api/tasks/:id route in app/api/tasks/[id]/route.ts
-- [ ] T089 [P] [US4] Implement task update logic with validation
-- [ ] T090 [US4] Make TaskCard clickable to open edit dialog
-- [ ] T091 [US4] Reuse TaskForm component for edit mode (pass existing task data)
-- [ ] T092 [US4] Add "mode" prop to TaskForm to distinguish create vs. edit
-- [ ] T093 [US4] Populate form fields with existing task data in edit mode
-- [ ] T094 [US4] Implement save handler that calls PATCH /api/tasks/:id
-- [ ] T095 [US4] Add cancel button that closes dialog without saving
-- [ ] T096 [US4] Add optimistic UI update for immediate feedback
-- [ ] T097 [US4] Implement error handling and display error messages
-- [ ] T098 [P] [US4] Add keyboard shortcut (e.g., Enter to save, Esc to cancel)
+- [X] T088 [P] [US4] Create PATCH /api/tasks/:id route in app/api/tasks/[id]/route.ts
+- [X] T089 [P] [US4] Implement task update logic with validation
+- [X] T090 [US4] Make TaskCard clickable to open edit dialog
+- [X] T091 [US4] Create EditTaskDialog component with Trello-style layout
+- [X] T092 [US4] Add hover effect with dark blue border and pencil icon
+- [X] T093 [US4] Populate form fields with existing task data in edit mode
+- [X] T094 [US4] Implement save handler that calls PATCH /api/tasks/:id
+- [X] T095 [US4] Add cancel button that closes dialog without saving
+- [X] T096 [US4] Add full page refresh after saving changes
+- [X] T097 [US4] Implement error handling and display error messages
+- [X] T098 [P] [US4] Add keyboard shortcut (Escape to cancel)
 - [ ] T099 [US4] Test accessibility: focus trap in dialog, Esc to close, keyboard navigation
 
 **Checkpoint**: User Story 4 complete - users can edit tasks ✅

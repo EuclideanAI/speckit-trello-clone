@@ -19,6 +19,7 @@ import {
 } from '@dnd-kit/sortable';
 import { Column } from './column';
 import { TaskCard } from './task-card';
+import { EditTaskDialog } from './edit-task-dialog';
 
 interface BoardProps {
   board: PrismaBoard & {
@@ -38,6 +39,35 @@ export function Board({ board: initialBoard }: BoardProps) {
   const router = useRouter();
   const [board, setBoard] = useState(initialBoard);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  // Handle task edit
+  const handleEditTask = (task: Task) => {
+    setEditingTask(task);
+    setIsEditDialogOpen(true);
+  };
+
+  // Save edited task
+  const handleSaveTask = async (taskId: string, title: string, description: string | null) => {
+    try {
+      const response = await fetch(`/api/tasks/${taskId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update task');
+      }
+
+      // Refresh the board to show updated task
+      window.location.reload();
+    } catch (error) {
+      console.error('Error updating task:', error);
+      throw error;
+    }
+  };
 
   // Keyboard shortcut to add new task (Ctrl/Cmd+N)
   useEffect(() => {
@@ -231,7 +261,12 @@ export function Board({ board: initialBoard }: BoardProps) {
           aria-label="Task columns"
         >
           {board.columns.map((column) => (
-            <Column key={column.id} column={column} onTaskCreated={refreshBoard} />
+            <Column 
+              key={column.id} 
+              column={column} 
+              onTaskCreated={refreshBoard}
+              onTaskEdit={handleEditTask}
+            />
           ))}
         </div>
       </main>
@@ -244,6 +279,14 @@ export function Board({ board: initialBoard }: BoardProps) {
           </div>
         ) : null}
       </DragOverlay>
+
+      {/* Edit Task Dialog */}
+      <EditTaskDialog
+        task={editingTask}
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        onSave={handleSaveTask}
+      />
     </DndContext>
   );
 }

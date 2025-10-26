@@ -17,6 +17,7 @@ interface ColumnProps {
     tasks: Task[];
   };
   onTaskCreated?: () => void;
+  onTaskEdit?: (task: Task) => void;
 }
 
 /**
@@ -25,7 +26,7 @@ interface ColumnProps {
  * Displays a column with header and list of tasks
  * Supports vertical scrolling for overflow content
  */
-export function Column({ column, onTaskCreated }: ColumnProps) {
+export function Column({ column, onTaskCreated, onTaskEdit }: ColumnProps) {
   const [isAddingTask, setIsAddingTask] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -151,7 +152,7 @@ export function Column({ column, onTaskCreated }: ColumnProps) {
             ) : (
               column.tasks.map((task) => (
                 <div key={task.id} role="listitem">
-                  <TaskCard task={task} />
+                  <TaskCard task={task} onEdit={onTaskEdit} />
                 </div>
               ))
             )}
