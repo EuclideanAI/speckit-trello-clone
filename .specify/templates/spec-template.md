@@ -105,6 +105,11 @@
 <!--
   ACTION REQUIRED: Define measurable success criteria.
   These must be technology-agnostic and measurable.
+  
+  CONSTITUTION ALIGNMENT: Success criteria must demonstrate compliance with:
+  - Principle II (Testing): Define testable acceptance criteria
+  - Principle III (UX): Include usability and accessibility metrics
+  - Principle IV (Performance): Specify measurable performance targets
 -->
 
 ### Measurable Outcomes
@@ -113,3 +118,16 @@
 - **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
 - **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
 - **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+
+### Performance Targets *(required per Constitution Principle IV)*
+
+- **Page Load**: [e.g., "Initial load completes in <2s on 3G"]
+- **API Response**: [e.g., "p95 latency <500ms for all endpoints"]
+- **Bundle Size**: [e.g., "Main bundle <200KB gzipped"]
+
+### Accessibility Requirements *(required per Constitution Principle III)*
+
+- **WCAG Compliance**: WCAG 2.1 Level AA mandatory
+- **Keyboard Navigation**: All interactive elements must be keyboard accessible
+- **Screen Reader**: All content must be properly announced
+- **Color Contrast**: Minimum 4.5:1 ratio for normal text, 3:1 for large text

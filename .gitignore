@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+.yarn/
+
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+
+# Testing
+/coverage/
+/playwright-report/
+/test-results/
+
+# Production
+/build/
+/dist/
+
+# Debug & Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+# Environment
+.env
+.env*.local
+.env.production
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+
+# OS Files
+.DS_Store
+*.pem
+Thumbs.db
+
+# IDEs
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Database
+*.db
+*.db-journal
+dev.db
+prisma/migrations/*_migration/
+!prisma/migrations/
