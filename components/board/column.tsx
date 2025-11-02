@@ -125,13 +125,13 @@ export function Column({ column, onTaskCreated, onTaskEdit }: ColumnProps) {
       role="region"
       aria-label={`${column.name} column`}
     >
-      {/* Column Container with grey background */}
-      <div className="bg-gray-100 dark:bg-gray-900 rounded-lg p-4">
+      {/* Column Container with semi-transparent background */}
+      <div className="bg-[#f1f2f4] rounded-xl p-3 shadow-sm">
         {/* Column Header */}
-        <div className="mb-3">
-          <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-sm uppercase tracking-wide">
+        <div className="mb-2">
+          <h2 className="font-semibold text-gray-900 text-sm px-2">
             {column.name}
-            <span className="ml-2 text-gray-500 dark:text-gray-400 font-normal">
+            <span className="ml-2 text-gray-600 font-normal">
               {column.tasks?.length || 0}
             </span>
           </h2>

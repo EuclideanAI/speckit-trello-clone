@@ -267,9 +267,10 @@ export function Board({ board: initialBoard }: BoardProps) {
       });
 
       if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('Failed to reorder task:', response.status, errorData);
         // Rollback on error
         setBoard(initialBoard);
-        console.error('Failed to reorder task');
       }
     } catch (error) {
       // Rollback on error
@@ -288,19 +289,12 @@ export function Board({ board: initialBoard }: BoardProps) {
       <main
         data-testid="board"
         role="main"
-        className="h-full px-6 py-8"
+        className="h-full px-6 py-6"
         aria-label="Kanban Board"
       >
-        {/* Board Header */}
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            {board.name}
-          </h1>
-        </div>
-
         {/* Columns Container - Horizontal Scrolling */}
         <div
-          className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent"
+          className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-white/30 hover:scrollbar-thumb-white/50 scrollbar-track-transparent h-full"
           role="group"
           aria-label="Task columns"
         >
@@ -312,6 +306,20 @@ export function Board({ board: initialBoard }: BoardProps) {
               onTaskEdit={handleEditTask}
             />
           ))}
+          
+          {/* Add another list button - Placeholder */}
+          <div className="flex-shrink-0 min-w-[280px] w-80">
+            <button
+              disabled
+              className="w-full bg-white/20 hover:bg-white/30 text-white rounded-xl p-3 text-left flex items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Add another list
+            </button>
+          </div>
         </div>
       </main>
 

@@ -214,27 +214,26 @@ description: "Task list for Kanban Board Project Management Tool implementation"
 **Independent Test**: Click delete on task, confirm, and verify task is removed from board
 
 ### Tests for User Story 5 (MANDATORY per Constitution) ⚠️
-
-- [ ] T100 [P] [US5] Create E2E test for deleting task with confirmation
-- [ ] T101 [P] [US5] Create E2E test for canceling delete action
-- [ ] T102 [P] [US5] Create E2E test for empty column after deleting last task
-- [ ] T103 [P] [US5] Create integration test for DELETE /api/tasks/:id endpoint
-- [ ] T104 [P] [US5] Create unit test for delete confirmation dialog
+- [X] T100 [P] [US5] Create E2E test for deleting task with confirmation
+- [X] T101 [P] [US5] Create E2E test for canceling delete action
+- [X] T102 [P] [US5] Create E2E test for empty column after deleting last task
+- [X] T103 [P] [US5] Create integration test for DELETE /api/tasks/:id endpoint
+- [X] T104 [P] [US5] Create unit test for delete confirmation dialog
 
 ### Implementation for User Story 5
 
-- [ ] T105 [P] [US5] Create DELETE /api/tasks/:id route in app/api/tasks/[id]/route.ts
-- [ ] T106 [P] [US5] Implement task deletion logic with order recalculation
-- [ ] T107 [P] [US5] Create DeleteDialog component in components/board/delete-dialog.tsx
-- [ ] T108 [US5] Add delete button/icon to TaskCard component
-- [ ] T109 [US5] Show DeleteDialog when delete button is clicked
-- [ ] T110 [US5] Implement confirm action that calls DELETE /api/tasks/:id
-- [ ] T111 [US5] Implement cancel action that closes dialog
-- [ ] T112 [US5] Add optimistic UI update to remove task immediately
-- [ ] T113 [US5] Implement error handling and rollback on failure
-- [ ] T114 [P] [US5] Style DeleteDialog with warning colors and clear messaging
-- [ ] T115 [US5] Add keyboard support (Enter to confirm, Esc to cancel)
-- [ ] T116 [US5] Test accessibility: focus on confirm button, screen reader announcements
+- [X] T105 [P] [US5] Create DELETE /api/tasks/:id route in app/api/tasks/[id]/route.ts
+- [X] T106 [P] [US5] Implement task deletion logic with order recalculation
+- [X] T107 [P] [US5] Create DeleteDialog component in components/board/delete-dialog.tsx
+- [X] T108 [US5] Add delete button/icon to TaskCard component
+- [X] T109 [US5] Show DeleteDialog when delete button is clicked
+- [X] T110 [US5] Implement confirm action that calls DELETE /api/tasks/:id
+- [X] T111 [US5] Implement cancel action that closes dialog
+- [X] T112 [US5] Add optimistic UI update to remove task immediately
+- [X] T113 [US5] Implement error handling and rollback on failure
+- [X] T114 [P] [US5] Style DeleteDialog with warning colors and clear messaging
+- [X] T115 [US5] Add keyboard support (Enter to confirm, Esc to cancel)
+- [X] T116 [US5] Test accessibility: focus on confirm button, screen reader announcements
 
 **Checkpoint**: User Story 5 complete - users can delete tasks ✅
 
